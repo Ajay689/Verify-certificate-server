@@ -51,18 +51,18 @@ app.use("/certs",certRouter);
 
 
 
-const PORT=process.env.PORT || 4000;
-const server = http.createServer(app);
-server.listen(PORT,()=>{
-    console.log(`server running on port ${PORT}`);
-});
+// const PORT=process.env.PORT || 4000;
+// const server = http.createServer(app);
+// server.listen(PORT,()=>{
+//     console.log(`server running on port ${PORT}`);
+// });
 
-// const PORT = process.env.PORT || 4000;
+ const PORT = process.env.PORT || 4000;
 
-// app.listen( PORT, () => {
-//         console.log( `Server running on port ${PORT}` );
-//     }) // listen() returns server
-//     .on( 'error', error => { // server.on( ... )
-//         console.error( error.message );
-//     });
+ app.listen( PORT, () => {
+         console.log( `Server running on port ${PORT}` );
+     }) // listen() returns server
+     .on( 'error', error => { // server.on( ... )
+         console.error( error.message );
+     });
 module.exports = app;
