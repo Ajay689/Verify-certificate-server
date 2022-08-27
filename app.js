@@ -10,6 +10,7 @@ const http = require("http");
 const cors =require("cors");
 const path=require('path')
 app.use(express.json());
+port= process.env.PORT || 8080
 
 
 if(process.env.NODE_ENV==="production"){
@@ -38,6 +39,7 @@ connect();
 //configuring body parser(accepts key value from request and parses)
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
+app.set('view engine', 'ejs');
 //configuring morgan(logger)
 app.use(morgan("dev"));
 //
