@@ -12,15 +12,15 @@ const path=require('path')
 app.use(express.json());
 
 
-if(process.env.NODE_ENV==="production"){
+if(process.env.NODE_ENV==="development"){
     app.use(cors());
     
 }
 app.use(express.static(path.join( process.cwd(), 'public')));
 
-// app.get('*',(req,res)=>{
-//     res.sendFile(path.join(__dirname,'public'))
-// })
+app.get('*',(req,res)=>{
+     res.sendFile(path.join(__dirname,'public'))
+ })
 
 //  const {NODE_ENV, DB_USER, DB_PASSWORD, DB_HOST,DB_NAME}= process.env;
 
