@@ -22,11 +22,11 @@ app.use(express.static(path.join( process.cwd(), 'public')));
 
 const connect = async () => {
     try {
-         await mongoose.connect(process.env.MONGO_URL)
+         await mongoose.connect(process.env.MONGO_URL,{
         //  await mongoose.connect( NODE_ENV === 'production'? `mongodb://${DB_HOST}/${DB_NAME}`: `mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority` , {
-        //     useNewUrlParser:true,
-        //      useUnifiedTopology:true,
-        // });
+            useNewUrlParser:true,
+              useUnifiedTopology:true,
+         });
         console.log( 'connected to db' );
     } catch( error ) {
         console.error( error.message );
@@ -47,12 +47,18 @@ app.use("/certs",certRouter);
 
 
 
-const PORT = process.env.PORT || 4000;
+const PORT=process.env.PORT || 4000;
+const server = http.createServer(app);
+server.listen(PORT,()=>{
+    console.log(`server running on port ${PORT}`);
+});
 
-app.listen( PORT, () => {
-        console.log( `Server running on port ${PORT}` );
-    }) // listen() returns server
-    .on( 'error', error => { // server.on( ... )
-        console.error( error.message );
-    });
+// const PORT = process.env.PORT || 4000;
+
+// app.listen( PORT, () => {
+//         console.log( `Server running on port ${PORT}` );
+//     }) // listen() returns server
+//     .on( 'error', error => { // server.on( ... )
+//         console.error( error.message );
+//     });
 module.exports = app;
