@@ -10,27 +10,27 @@ const http = require("http");
 const cors =require("cors");
 const path=require('path')
 app.use(express.json());
-app.use(cors());
 
 
 if(process.env.NODE_ENV==="production"){
+    app.use(cors());
     
 }
 app.use(express.static(path.join( process.cwd(), 'public')));
 
 app.get('*',(req,res)=>{
-     res.sendFile(path.join(__dirname,'public'))
+     res.sendFile(path.join(__dirname,'public/index.html'))
  })
 
 //  const {NODE_ENV, DB_USER, DB_PASSWORD, DB_HOST,DB_NAME}= process.env;
 
 const connect = async () => {
     try {
-     await mongoose.connect(process.env.MONGO_URL,{
+     await mongoose.connect(process.env.MONGO_URL)
         //  await mongoose.connect( NODE_ENV === 'production'? `mongodb://${DB_HOST}/${DB_NAME}`: `mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority` , {
-            useNewUrlParser:true,
-              useUnifiedTopology:true,
-         });
+        //     useNewUrlParser:true,
+        //       useUnifiedTopology:true,
+        //  });
         console.log( 'connected to db' );
     } catch( error ) {
         console.error( error.message );
