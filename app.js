@@ -10,13 +10,13 @@ const http = require("http");
 const cors =require("cors");
 const path=require('path')
 app.use(express.json());
+app.use(cors());
 
 
 if(process.env.NODE_ENV==="production"){
-    app.use(cors());
+    app.use(express.static(path.join( process.cwd(), 'public')));
     
 }
-app.use(express.static(path.join( process.cwd(), 'public')));
 
 //  const {NODE_ENV, DB_USER, DB_PASSWORD, DB_HOST,DB_NAME}= process.env;
 
@@ -49,7 +49,7 @@ app.use("/certs",certRouter);
 
 const PORT=process.env.PORT || 4000;
 const server = http.createServer(app);
-server.listen(46074,()=>{
+server.listen(PORT,()=>{
     console.log(`server running on port ${PORT}`);
 });
 
