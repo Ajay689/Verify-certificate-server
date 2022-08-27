@@ -10,13 +10,13 @@ const http = require("http");
 const cors =require("cors");
 const path=require('path')
 app.use(express.json());
-app.use(cors());
 
 
 if(process.env.NODE_ENV==="production"){
-    app.use(express.static(path.join( process.cwd(), 'public')));
+    app.use(cors());
     
 }
+app.use(express.static(path.join( process.cwd(), 'public')));
 
 //  const {NODE_ENV, DB_USER, DB_PASSWORD, DB_HOST,DB_NAME}= process.env;
 
