@@ -12,7 +12,7 @@ const path=require('path')
 app.use(express.json());
 
 
-if(process.env.NODE_ENV==="production"){
+if(process.env.NODE_ENV==="development"){
     app.use(cors());
     
 }
