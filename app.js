@@ -10,7 +10,6 @@ const http = require("http");
 const cors =require("cors");
 const path=require('path')
 app.use(express.json());
-port= process.env.PORT || 8080
 
 
 if(process.env.NODE_ENV==="production"){
@@ -19,14 +18,14 @@ if(process.env.NODE_ENV==="production"){
 }
 app.use(express.static(path.join( process.cwd(), 'public')));
 
-//  const {NODE_ENV, DB_USER, DB_PASSWORD, DB_HOST,DB_NAME}= process.env;
+ const {NODE_ENV, DB_USER, DB_PASSWORD, DB_HOST,DB_NAME}= process.env;
 
 const connect = async () => {
     try {
-         await mongoose.connect(process.env.MONGO_URL,{
-        //  await mongoose.connect( NODE_ENV === 'production'? `mongodb://${DB_HOST}/${DB_NAME}`: `mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority` , {
-            useNewUrlParser:true,
-              useUnifiedTopology:true,
+        //  await mongoose.connect(process.env.MONGO_URL,{
+         await mongoose.connect( NODE_ENV === 'production'? `mongodb://${DB_HOST}/${DB_NAME}`: `mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority` , {
+            // useNewUrlParser:true,
+            //   useUnifiedTopology:true,
          });
         console.log( 'connected to db' );
     } catch( error ) {
@@ -39,7 +38,6 @@ connect();
 //configuring body parser(accepts key value from request and parses)
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
-app.set('view engine', 'ejs');
 //configuring morgan(logger)
 app.use(morgan("dev"));
 //
