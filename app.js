@@ -10,10 +10,10 @@ const http = require("http");
 const cors =require("cors");
 const path=require('path')
 app.use(express.json());
+app.use(cors());
 
 
-if(process.env.NODE_ENV==="development"){
-    app.use(cors());
+if(process.env.NODE_ENV==="production"){
     
 }
 app.use(express.static(path.join( process.cwd(), 'public')));
