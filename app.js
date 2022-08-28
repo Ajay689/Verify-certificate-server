@@ -26,8 +26,10 @@ app.use(express.static(path.join( process.cwd(), 'public')));
 
 const connect = async () => {
     try {
+        const url=NODE_ENV !== 'production'? `mongodb://${DB_HOST}/${DB_NAME}`: `mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority`
+        console.log(url);
     //  await mongoose.connect(process.env.MONGO_URL,{
-         await mongoose.connect( NODE_ENV !== 'production'? `mongodb://${DB_HOST}/${DB_NAME}`: `mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority` , {
+         await mongoose.connect( url , {
             useNewUrlParser:true,
               useUnifiedTopology:true,
           });
