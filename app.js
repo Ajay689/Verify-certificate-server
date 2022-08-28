@@ -18,16 +18,16 @@ if(process.env.NODE_ENV==="production"){
 }
 app.use(express.static(path.join( process.cwd(), 'public')));
 
- app.get('*',(req,res)=>{
-      res.sendFile(path.join(__dirname,'public/index.html'))
-  })
+//  app.get('*',(req,res)=>{
+//       res.sendFile(path.join(process.cwd(),'public/index.html'))
+//   })
 
  const {NODE_ENV, DB_USER, DB_PASSWORD, DB_HOST,DB_NAME}= process.env;
 
 const connect = async () => {
     try {
     //  await mongoose.connect(process.env.MONGO_URL,{
-         await mongoose.connect( NODE_ENV === 'production'? `mongodb://${DB_HOST}/${DB_NAME}`: `mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority` , {
+         await mongoose.connect( NODE_ENV !== 'production'? `mongodb://${DB_HOST}/${DB_NAME}`: `mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority` , {
             useNewUrlParser:true,
               useUnifiedTopology:true,
           });
@@ -51,18 +51,18 @@ app.use("/certs",certRouter);
 
 
 
- const PORT=process.env.PORT || 4000;
- const server = http.createServer(app);
- server.listen(PORT,()=>{
-     console.log(`server running on port ${PORT}`);
- });
+//  const PORT=process.env.PORT || 4000;
+//  const server = http.createServer(app);
+//  server.listen(PORT,()=>{
+//      console.log(`server running on port ${PORT}`);
+//  });
 
-//  const PORT = process.env.PORT || 4000;
+  const PORT = process.env.PORT || 4000;
 
-//  app.listen( PORT, () => {
-//          console.log( `Server running on port ${PORT}` );
-//      }) // listen() returns server
-//      .on( 'error', error => { // server.on( ... )
-//          console.error( error.message );
-//      });
+  app.listen( PORT, () => {
+          console.log( `Server running on port ${PORT}` );
+      }) // listen() returns server
+      .on( 'error', error => { // server.on( ... )
+          console.error( error.message );
+      });
 module.exports = app;
