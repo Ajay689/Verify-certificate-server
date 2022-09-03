@@ -28,11 +28,7 @@ const connect = async () => {
     try {
         const url=NODE_ENV !== 'production'? `mongodb://${DB_HOST}/${DB_NAME}`: `mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority`
         console.log(url);
-    //  await mongoose.connect(process.env.MONGO_URL,{
          await mongoose.connect( url ) 
-        //     useNewUrlParser:true,
-        //     useUnifiedTopology:true,
-        //   });
         console.log( 'connected to db' );
     } catch( error ) {
         console.error( error.message );
@@ -41,30 +37,20 @@ const connect = async () => {
 };
 connect();
 
-//configuring body parser(accepts key value from request and parses)
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
-//configuring morgan(logger)
 app.use(morgan("dev"));
 //
-//use it to work on database;
 app.use("/users",userRouter);
 app.use("/certs",certRouter);
 
-
-
-//  const PORT=process.env.PORT || 4000;
-//  const server = http.createServer(app);
-//  server.listen(PORT,()=>{
-//      console.log(`server running on port ${PORT}`);
-//  });
 
   const PORT = process.env.PORT || 4000;
 
   app.listen( PORT, () => {
           console.log( `Server running on port ${PORT}` );
-      }) // listen() returns server
-      .on( 'error', error => { // server.on( ... )
+      }) 
+      .on( 'error', error => { 
           console.error( error.message );
       });
 module.exports = app;
