@@ -26,8 +26,8 @@ app.use(express.static(path.join( process.cwd(), 'public')));
 
 const connect = async () => {
     try {
-//         const url=NODE_ENV !== 'production'? `mongodb://${DB_HOST}/${DB_NAME}`: `mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority`
-       const url = MONGO_URL
+    const url=NODE_ENV !== 'production'? `mongodb://${DB_HOST}/${DB_NAME}`: `mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority`
+       
         console.log(url);
          await mongoose.connect( url ) 
         console.log( 'connected to db' );
